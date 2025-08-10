@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, status, Depends
-from app.UserSchemas import UserCreate
+from app.schemas.UserSchemas import UserCreate
 from app.core.db import db_dependency
 from app.crud.usercrud import get_user_by_email
-from app.UserModels import User
+from app.models.UserModels import User
 from app.core.security import password_hash
 
 router = APIRouter(tags=['User'], prefix="/user")

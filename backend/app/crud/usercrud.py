@@ -1,8 +1,8 @@
 import uuid
 from typing import Any
 from sqlalchemy.orm import Session
-from app.UserSchemas import UserCreate
-from app.UserModels import User
+from app.schemas.UserSchemas import UserCreate
+from app.models.UserModels import User
 from app.core.db import db_dependency
 
 

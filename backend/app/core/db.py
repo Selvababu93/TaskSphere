@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from fastapi.security import OAuth2PasswordBearer
 from typing import Annotated
 from fastapi import Depends
-from app.UserModels import User
+from app.models.UserModels import User
 
 DATABASE_URL = "sqlite:///./testdb.db"
 

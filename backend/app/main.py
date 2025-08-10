@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from app.core.db import engine
-import app.UserModels
+from app.models import UserModels
 from app.api.routes import user, login
 from starlette.middleware.cors import CORSMiddleware
 
-app.UserModels.Base.metadata.create_all(engine)
+UserModels.Base.metadata.create_all(engine)
 
 app = FastAPI()
 
