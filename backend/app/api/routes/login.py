@@ -21,9 +21,10 @@ def login_access_token(session : db_dependency, form_data : Annotated[OAuth2Pass
     return Token(access_token=create_access_token(user.id, expires_delta=access_token_expires), token_type='bearer')
 
 
-
+# Need to fix this route
 @router.post("/login/test-token")
 def test_token(current_user: CurrentUser) -> Any:
     """Test access token"""
 
     return current_user
+

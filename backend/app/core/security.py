@@ -6,6 +6,7 @@ from app.UserSchemas import TokenPayload
 from fastapi import HTTPException, status, Depends
 from app.core.db import db_dependency, token_dependency
 from app.UserModels import User
+from sqlalchemy.orm import Session
 
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
@@ -33,7 +34,7 @@ def create_access_token(subject : str | Any, expires_delta : timedelta) -> str:
 
 def get_current_user(
     session: db_dependency,
-    token: str = Depends(token_dependency),  # e.g. OAuth2PasswordBearer
+    token: token_dependency,  # e.g. OAuth2PasswordBearer
 ) -> User:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
