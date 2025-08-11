@@ -1,10 +1,9 @@
 import React from "react";
 
-// Footer.jsx
 const Footer = () => {
   return (
-    <footer className="bg-indigo-600 text-white h-12 flex items-center justify-center shadow-inner">
-      Footer
+    <footer className="bg-indigo-600 text-white h-12 flex items-center justify-center text-sm shadow-inner">
+      © {new Date().getFullYear()} MySaaS. All rights reserved.
     </footer>
   );
 };

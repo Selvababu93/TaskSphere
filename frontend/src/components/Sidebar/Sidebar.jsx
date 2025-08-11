@@ -1,18 +1,30 @@
 import React from "react";
+import { LayoutDashboard, Settings, Users } from "lucide-react";
 
-// Sidebar.jsx
-const Sidebar = () => {
+const Sidebar = ({ onSelectPage }) => {
   return (
-    <aside className="bg-indigo-700 text-white w-56 h-full p-4 flex flex-col gap-4">
-      <a href="#" className="hover:bg-indigo-500 p-2 rounded">
-        Dashboard
-      </a>
-      <a href="#" className="hover:bg-indigo-500 p-2 rounded">
-        Profile
-      </a>
-      <a href="#" className="hover:bg-indigo-500 p-2 rounded">
-        Settings
-      </a>
+    <aside className="bg-white w-56 h-full shadow-lg border-r flex flex-col">
+      <div className="p-4 font-semibold text-gray-700 border-b">Menu</div>
+      <ul className="flex flex-col gap-2 p-4 text-gray-600">
+        <li
+          onClick={() => onSelectPage("dashboard")}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition"
+        >
+          <LayoutDashboard size={18} /> Dashboard
+        </li>
+        <li
+          onClick={() => onSelectPage("users")}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition"
+        >
+          <Users size={18} /> Users
+        </li>
+        <li
+          onClick={() => onSelectPage("settings")}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition"
+        >
+          <Settings size={18} /> Settings
+        </li>
+      </ul>
     </aside>
   );
 };
