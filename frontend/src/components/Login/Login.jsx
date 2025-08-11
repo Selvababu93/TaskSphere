@@ -1,8 +1,20 @@
-import { React, useState } from "react";
+import { React, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const { loading, error, isAuthenticated, authLogin } =
+    useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="bg-gray-200 flex items-center justify-center h-screen">

@@ -1,4 +1,41 @@
+# Environment variables
 .env
-.venv
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+ENV/
+
+# Databases
 *.db
-node_modules
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Frontend
+node_modules/
+dist/
+build/
+.cache/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Coverage / testing
+.coverage
+coverage.xml
+htmlcov/
+pytest_cache/

@@ -4,6 +4,7 @@ from typing import Annotated, Any
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import Depends
 from app.schemas.TokenSchemas import Token
+from app.schemas.UserSchemas import UserPublic
 from app.crud import usercrud, logincrud
 from datetime import datetime, timedelta
 from app.core.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, CurrentUser
@@ -22,8 +23,9 @@ def login_access_token(session : db_dependency, form_data : Annotated[OAuth2Pass
 
 
 # Need to fix this route
+# fixed return should be user schemas not -> Any
 @router.post("/login/test-token")
-def test_token(current_user: CurrentUser) -> Any:
+def test_token(current_user: CurrentUser) -> UserPublic:
     """Test access token"""
 
     return current_user

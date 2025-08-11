@@ -3,7 +3,7 @@ from pydantic import BaseModel, EmailStr
 
 
 # Shared property Base
-class UserBase(BaseModel):
+class UserPublic(BaseModel):
     email : EmailStr
     is_active : bool
     is_superuser : bool
@@ -13,18 +13,18 @@ class Config:
     orm_mode = True
 
 # Properties to receive from API to create
-class UserCreate(UserBase):
+class UserCreate(UserPublic):
     password : str
 
 
-class UserRegister(BaseModel):
+class UserRegister(UserPublic):
     email : EmailStr
     password : str
     full_name : str
 
 
 # Properties to receive on API to update
-class UserUpdate(UserBase):
+class UserUpdate(UserPublic):
     email : EmailStr
     password : str
 

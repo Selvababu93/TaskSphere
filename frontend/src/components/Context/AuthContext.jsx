@@ -6,7 +6,7 @@ export const AuthContextProvider = ({ children }) => {
   // this for to show current username in welcome page after successfull login
   const [currentUsername, setCurrentUserName] = useState("");
   //   this is to procted te routes
-  const [isAuthenticated, setIsAuthenticated] = useSatte(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   //   for API call
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,15 +28,37 @@ export const AuthContextProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      await new promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const foundUser = userDB.find(
         (user) =>
           user.username.toLowerCase() === inputUsername.toLowerCase() &&
           user.password === inputPassword
       );
-    } catch (error) {}
+      if (foundUser) {
+        setCurrentUserName(foundUser.username);
+        setIsAuthenticated(true);
+      } else {
+        setError("invalid username and password");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const values = { currentUsername };
+  const authLogin = async (username, password) => {
+    await mockPost(username, password);
+  };
+
+  const values = {
+    currentUsername,
+    setCurrentUserName,
+    authLogin,
+    loading,
+    error,
+    setError,
+    isAuthenticated,
+  };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
