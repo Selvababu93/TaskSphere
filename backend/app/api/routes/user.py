@@ -1,9 +1,10 @@
 from fastapi import APIRouter, HTTPException, status, Depends
-from app.schemas.UserSchemas import UserCreate
+from app.schemas.UserSchemas import UserCreate, UserPublic
 from app.core.db import db_dependency
 from app.crud.usercrud import get_user_by_email
 from app.models.UserModels import User
-from app.core.security import password_hash
+from app.core.security import password_hash, get_current_active_superuser
+from typing import List
 
 router = APIRouter(tags=['User'], prefix="/user")
 
@@ -24,3 +25,9 @@ def create_user(user_create : UserCreate, db : db_dependency ):
     return user_create
 
                                                                                                                                 
+@router.get("/all", response_model=List[UserPublic], dependencies=[Depends(get_current_active_superuser)])
+def read_users(session : db_dependency):
+    """Retrieve users"""
+
+    all_users = session.query(User).all()
+    return all_users

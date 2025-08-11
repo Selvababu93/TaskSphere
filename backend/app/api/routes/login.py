@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from app.core.db import db_dependency
 from typing import Annotated, Any
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi import Depends
 from app.schemas.TokenSchemas import Token
 from app.schemas.UserSchemas import UserPublic
 from app.crud import usercrud, logincrud
@@ -22,11 +21,21 @@ def login_access_token(session : db_dependency, form_data : Annotated[OAuth2Pass
     return Token(access_token=create_access_token(user.id, expires_delta=access_token_expires), token_type='bearer')
 
 
-# Need to fix this route
 # fixed return should be user schemas not -> Any
 @router.post("/login/test-token")
 def test_token(current_user: CurrentUser) -> UserPublic:
     """Test access token"""
 
     return current_user
+
+# @router.post('/', status_code=status.HTTP_202_ACCEPTED)
+# def login( db : db_dependency,request : OAuth2PasswordRequestForm = Depends(),):
+#     user = usercrud.get_user(db,request.username, request.password )
+
+#     # generate jwt access token
+    
+#     access_token = create_access_token(
+#         data={"sub": user.email}
+#     )
+#     return {"access_token" : access_token, "token_type" : "bearer"}
 

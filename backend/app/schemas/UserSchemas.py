@@ -9,8 +9,8 @@ class UserPublic(BaseModel):
     is_superuser : bool
     user_name : str
 
-class Config:
-    orm_mode = True
+    class Config:
+        orm_mode = True
 
 # Properties to receive from API to create
 class UserCreate(UserPublic):
