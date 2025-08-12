@@ -12,6 +12,10 @@ export const AuthContextProvider = ({ children }) => {
   const [addUserLoading, setAddUserLoading] = useState(false);
   const [addUserError, setAddUserError] = useState(null);
 
+  // Separate loading/error for fetch user (optional)
+  const [fetchUserLoading, setFetchUserLoading] = useState(false);
+  const [fetchUserError, setFetchUserError] = useState(null);
+
   const authLogin = async (username, password) => {
     try {
       setLoading(true);
@@ -78,6 +82,39 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const fetchAllUsers = async () => {
+    try {
+      setFetchUserLoading(true);
+      setFetchUserError(null);
+
+      const token = localStorage.getItem("access_token");
+
+      const response = await fetch(
+        "http://localhost:8000/user/all",
+
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        // console.log("Error");
+
+        throw new Error("Failed to fetch users");
+      }
+      const data = await response.json();
+      // console.log(`Fetched users : ${data}`);
+      return data;
+    } catch (error) {
+      setFetchUserError(error.message);
+      return {};
+    } finally {
+      setFetchUserLoading(false);
+    }
+  };
+
   const values = {
     authLogin,
     authAddUser,
@@ -86,6 +123,9 @@ export const AuthContextProvider = ({ children }) => {
     addUserLoading,
     addUserError,
     isAuthenticated,
+    fetchAllUsers,
+    fetchUserLoading,
+    fetchUserError,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

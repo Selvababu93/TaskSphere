@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddUserModal from "./AddUserModal";
+import ShowUsers from "./ShowUsers";
 
 const UsersPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +29,8 @@ const UsersPage = () => {
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveUser}
       />
+
+      <ShowUsers />
     </div>
   );
 };
