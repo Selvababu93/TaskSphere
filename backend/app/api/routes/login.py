@@ -8,7 +8,7 @@ from app.crud import usercrud, logincrud
 from datetime import datetime, timedelta
 from app.core.security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, CurrentUser
 
-router = APIRouter(tags=['Login'], prefix='/auth')
+router = APIRouter(tags=['Login'])
 
 @router.post('/login/access-token')
 def login_access_token(session : db_dependency, form_data : Annotated[OAuth2PasswordRequestForm, Depends()] )-> Token:

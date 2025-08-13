@@ -1,5 +1,11 @@
 import React from "react";
-import { LayoutDashboard, Settings, Users } from "lucide-react";
+import {
+  LayoutDashboard,
+  Settings,
+  Users,
+  LayoutList,
+  AlignVerticalJustifyEnd,
+} from "lucide-react";
 
 const Sidebar = ({ onSelectPage }) => {
   return (
@@ -17,6 +23,18 @@ const Sidebar = ({ onSelectPage }) => {
           className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition"
         >
           <Users size={18} /> Users
+        </li>
+        <li
+          onClick={() => onSelectPage("tasks")}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition"
+        >
+          <LayoutList size={18} /> Tasks
+        </li>
+        <li
+          onClick={() => onSelectPage("inventory")}
+          className="flex items-center gap-3 p-2 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition"
+        >
+          <AlignVerticalJustifyEnd size={18} /> Inventory
         </li>
         <li
           onClick={() => onSelectPage("settings")}
