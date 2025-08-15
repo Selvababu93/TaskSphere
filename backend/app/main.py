@@ -8,14 +8,16 @@ UserModels.Base.metadata.create_all(engine)
 
 app = FastAPI()
 
-app.include_router(user.router)
 app.include_router(login.router)
+app.include_router(user.router)
 app.include_router(task.router)
+
+origins = ["http://localhost:5173", "http://localhost:3000"] 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,         #<--- important for cookies
     allow_methods=["*"],
     allow_headers=["*"],
 )

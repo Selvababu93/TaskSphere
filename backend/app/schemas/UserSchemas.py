@@ -10,7 +10,7 @@ class UserPublic(BaseModel):
     user_name : str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # Properties to receive from API to create
 class UserCreate(UserPublic):
@@ -22,12 +22,16 @@ class UserRegister(UserPublic):
     password : str
     full_name : str
 
-
-# Properties to receive on API to update
-class UserUpdate(UserPublic):
-    email : EmailStr
+class LoginSchema(BaseModel):
+    email : str
     password : str
 
+# Properties to receive on API to update
+class UserNameUpdate(BaseModel):
+    user_name : str
+    
+class UserEmailUpdate(BaseModel):
+    email : EmailStr
 
 class UserUpdateMe(BaseModel):
     full_name : str

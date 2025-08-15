@@ -57,3 +57,17 @@ class TaskCreate(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class TaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    notes: Optional[str] = None
+    assignee_id: Optional[int] = None
+    task_type: Optional[str] = None
+    status: Optional[TaskStatus] = None
+    due_date: Optional[datetime] = None
+    tag: Optional[str] = None
+
+    class Config:
+        from_attributes = True

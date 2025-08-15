@@ -8,8 +8,13 @@ from fastapi import HTTPException, status
 from app.core.security import verify_password
 
 
-def get_user_by_email(*, session : db_dependency, email : str) -> User:
+def get_user_by_email( session : db_dependency, email : str) -> User:
     user_query = session.query(User).filter(User.email == email).first()
+    return user_query
+
+
+def get_user_by_id(*, session : db_dependency, id : str) -> User:
+    user_query = session.query(User).filter(User.id == id).first()
     return user_query
 
 

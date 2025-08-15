@@ -2,19 +2,27 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../services/AuthContextAPI";
 
 const ShowUsers = () => {
-  const { fetchAllUsers, loading, error } = useContext(AuthContext);
+  const { fetchAllUsers, fetchUserLoading, fetchUserError } =
+    useContext(AuthContext);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const loadUsers = async () => {
-      const data = await fetchAllUsers();
-      setUsers(data);
+      try {
+        const data = await fetchAllUsers();
+        setUsers(data);
+      } catch (err) {
+        console.error("Failed to load users:", err);
+      }
     };
     loadUsers();
-  }, [fetchAllUsers]);
+  }, []);
 
-  if (loading) return <p className="p-4">Loading users...</p>;
-  if (error) return <p className="p-4 text-red-500">{error}</p>;
+  if (fetchUserLoading) return <p className="p-4">Loading users...</p>;
+  if (fetchUserError === "Could not validate credentials") {
+    console.log("you can redirect");
+    return <p className="p-4 text-red-500">{fetchUserError}</p>;
+  }
 
   return (
     <div className="p-4">
@@ -30,7 +38,13 @@ const ShowUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users.length === 0 ? (
+          {fetchUserError ? (
+            <tr>
+              <td colSpan="5" className="p-4 text-center text-red-500">
+                {fetchUserError}
+              </td>
+            </tr>
+          ) : users.length === 0 ? (
             <tr>
               <td colSpan="5" className="p-4 text-center">
                 No users found
